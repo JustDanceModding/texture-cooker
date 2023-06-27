@@ -6,7 +6,7 @@
 - dds2gtf for PS3
 
 ## How to use
-In the input folder you need to put your## Requirements
+In the input folder you need to put your Requirements
 - Bundler.exe from the Xbox 360 SDK for Xbox 360
 - [Wiimms Image Tool](https://szs.wiimm.de/wimgt/) for Wii
 - [XTX-Extractor](https://github.com/aboood40091/XTX-Extractor) for NX
