@@ -4,6 +4,7 @@
 - [XTX-Extractor](https://github.com/aboood40091/XTX-Extractor) for NX
 - TexConv2 for WiiU
 - dds2gtf for PS3
+- nvcompress + nvtt.dll for PC/PS4/Xbox One
 
 ## How to use
 In the "toCook" folder you need to put your textures (dosen't matter which format)
