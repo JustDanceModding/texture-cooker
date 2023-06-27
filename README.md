@@ -13,6 +13,6 @@ And then on the folder "cookedTex" you'll get the cooked textures in  base of yo
 Create a "bin" folder and inside you put the programs required for the cooking. ex. "bin\dds2gtf.exe"
 
 ## TODO
-- Refactor the header classes
+- Refactor the header classes as our implementation is not so right.
 
 If you found this useful, leave a star! :D
