@@ -15,5 +15,10 @@ Create a "bin" folder and inside you put the programs required for the cooking. 
 
 ## TODO
 - Refactor the header classes as our implementation is not so right.
+- PS4 Cooking
+- Xbox 360 Encoding
+- Wii Encoding
+- Wii U Encoding
+- PS3 Encoding
 
 If you found this useful, leave a star! :D
