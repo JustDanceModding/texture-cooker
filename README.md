@@ -1,2 +1,2 @@
-# texture-cooker
-A Texture Cooker for Just Dance Series games re-created in Python.
+## texture-cooker
+Requirements for this tool:
