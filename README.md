@@ -20,5 +20,6 @@ Create a "bin" folder and inside you put the programs required for the cooking. 
 - Wii Encoding
 - Wii U Encoding
 - PS3 Encoding
+- NX Encoding
 
 If you found this useful, leave a star! :D
