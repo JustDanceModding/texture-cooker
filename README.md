@@ -1,8 +1,9 @@
 ## Requirements
+WARNING: nvcompress is required for every platform.
 - Bundler.exe from the Xbox 360 SDK for Xbox 360
 - [Wiimms Image Tool](https://szs.wiimm.de/wimgt/) for Wii
 - [XTX-Extractor](https://github.com/aboood40091/XTX-Extractor) for NX
-- TexConv2 + nvcompress for WiiU
+- TexConv2 for WiiU
 - dds2gtf for PS3
 - nvcompress for PC/PS4/Xbox One
 
