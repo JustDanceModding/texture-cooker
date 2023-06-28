@@ -2,7 +2,7 @@ import struct
 from PIL import Image
 
 class UbiartHeader:
-    def create_header(image, hasSSD=False, isDDS=True, imageEncoded=None):
+    def create_header(image, hasSSD=False, isDDS=False, imageEncoded=None):
         if isDDS:
             fileStream = open(image, "rb")
         else:
@@ -23,6 +23,7 @@ class UbiartHeader:
         else:
             header += b'\x00\x01\x20\x00'
 
+        fileStream.seek(0)
         header += len(fileStream.read()).to_bytes(3, "big") # Image Size
         header += b'\x80' # ???
         header += b'\x00\x00\x00\x00'
