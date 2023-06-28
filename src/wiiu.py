@@ -1,4 +1,4 @@
-import os, shutil
+import os, shutil, json
 from CookerFunctions.UbiHeader import UbiartHeader
 from CookerFunctions.ConvertPlatform import ConvertTexture
 from PIL import Image
@@ -28,6 +28,8 @@ def has_transparency(image_path):
 def main():
     print("texture-cooker WiiU")
     
+    config = json.load(open("CookerConfig.json"))
+
     os.makedirs("toCook", exist_ok=True)
     os.makedirs("cooked\\wiiu", exist_ok=True)
 
@@ -38,7 +40,10 @@ def main():
 
         transparency = has_transparency(f"toCook/{image}")
 
-        ckd = image.split(".")[0] +'.png.ckd' if transparency else image.split(".")[0] + '.tga.ckd'
+        if config["DontUseCookerExtension"]:
+            ckd = config["NewExtension"]
+        else:
+            ckd = image.split(".")[0] +'.png.ckd' if transparency else image.split(".")[0] + '.tga.ckd'
         gtx = image.split(".")[0] +'.gtx'
 
         convert_image_to_dds(f"toCook/{image}", f"temp/{dds}")

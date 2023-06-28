@@ -2,6 +2,7 @@ import os, shutil
 from CookerFunctions.UbiHeader import UbiartHeader
 from PIL import Image
 
+# Took this from ChatGPT
 def convert_image_to_dds(image_path, output_path, binPath="bin"):
     # Check if the image has transparency
     transpacency = has_transparency(image_path)

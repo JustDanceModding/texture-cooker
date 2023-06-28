@@ -1,7 +1,8 @@
-import os, shutil
+import os, shutil, json
 from CookerFunctions.UbiHeader import UbiartHeader
 from PIL import Image
 
+# Took this from ChatGPT
 def convert_image_to_dds(image_path, output_path, binPath="bin"):
     # Check if the image has transparency
     transpacency = has_transparency(image_path)
@@ -26,6 +27,8 @@ def has_transparency(image_path):
 def main():
     print("texture-cooker PC")
     
+    config = json.load(open("CookerConfig.json"))
+
     os.makedirs("toCook", exist_ok=True)
     os.makedirs("cooked\\pc", exist_ok=True)
 
@@ -36,8 +39,10 @@ def main():
 
         transparency = has_transparency(f"toCook/{image}")
 
-        ckd = image.split(".")[0] +'.png.ckd' if transparency else image.split(".")[0] + '.tga.ckd'
-
+        if config["DontUseCookerExtension"]:
+            ckd = config["NewExtension"]
+        else:
+            ckd = image.split(".")[0] +'.png.ckd' if transparency else image.split(".")[0] + '.tga.ckd'
         convert_image_to_dds(f"toCook/{image}", f"temp/{dds}")
 
         MakeHeader = UbiartHeader.create_header
