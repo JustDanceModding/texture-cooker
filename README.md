@@ -1,11 +1,10 @@
 ## Requirements
-WARNING: nvcompress is required for every platform.
-- Bundler.exe from the Xbox 360 SDK for Xbox 360
+- Bundler.exe from the Xbox 360 SDK and nvcompress + nvtt.dll for Xbox 360
 - [Wiimms Image Tool](https://szs.wiimm.de/wimgt/) for Wii
 - [XTX-Extractor](https://github.com/aboood40091/XTX-Extractor) for NX
 - TexConv2 for WiiU
 - dds2gtf for PS3
-- nvcompress for PC/PS4/Xbox One
+- Pillow Library
 
 ## How to use
 In the "toCook" folder you need to put your textures (dosen't matter which format)
@@ -16,11 +15,9 @@ Create a "bin" folder and inside you put the programs required for the cooking. 
 
 ## TODO
 - Refactor the header classes as our implementation is not so right.
-- PS4 Cooking
+- Try to find a way to convert the DDS into DXT1 (or DXT5) cause using nvcompress it causes to not work. However it can be used for converting textures for the X360.
 - Xbox 360 Encoding
 - Wii Encoding
-- Wii U Encoding
 - PS3 Encoding
-- NX Encoding
 
 If you found this useful, leave a star! :D
