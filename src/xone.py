@@ -3,7 +3,7 @@ from CookerFunctions.UbiHeader import UbiartHeader
 from PIL import Image
 
 # Took this from ChatGPT
-def convert_image_to_dds(image_path, output_path, binPath="bin"):
+"""def convert_image_to_dds(image_path, output_path, binPath="bin"):
     # Check if the image has transparency
     transpacency = has_transparency(image_path)
 
@@ -13,7 +13,11 @@ def convert_image_to_dds(image_path, output_path, binPath="bin"):
     # Convert the image to DDS using nvcompress
     command = f"{binPath}\\nvcompress.exe -bc1" if compression == "dxt1" else f"{binPath}\\nvcompress -bc3"
     command += f" {image_path} {output_path}"
-    os.system(command)
+    os.system(command)"""
+
+def convert_to_dds(image_path, output_path):
+    img = Image.open(image_path)
+    img.save(output_path)
     
 # And also this
 def has_transparency(image_path):
@@ -43,7 +47,7 @@ def main():
             ckd = config["NewExtension"]
         else:
             ckd = image.split(".")[0] +'.png.ckd' if transparency else image.split(".")[0] + '.tga.ckd'
-        convert_image_to_dds(f"toCook/{image}", f"temp/{dds}")
+        convert_to_dds(f"toCook/{image}", f"temp/{dds}")
 
         MakeHeader = UbiartHeader.create_header
 

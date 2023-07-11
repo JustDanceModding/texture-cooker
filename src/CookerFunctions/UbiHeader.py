@@ -2,7 +2,7 @@ import struct
 from PIL import Image
 
 class UbiartHeader:
-    def create_header(image, hasSSD=False, isDDS=False, imageEncoded=None):
+    def create_header(image, hasSSD=False, isDDS=False, imageEncoded=None, isXPR=False):
         if isDDS:
             fileStream = open(image, "rb")
         else:
@@ -14,7 +14,10 @@ class UbiartHeader:
         header += b'\x00\x00\x00\x09' # Version
         header += b'TEX\x00' # Magic
         header += b'\x00\x00\x00\x2C' # Offset Flags
-        header += len(fileStream.read()).to_bytes(3, "big") # Image Size
+        if isXPR:
+            header += len(fileStream.read()).to_bytes(3, "big") # Image Size
+        else:
+            header += b'\x00\x40\x00'
         header += b'\x80' # ???
         header += struct.pack(">HH", width, height)
 
@@ -24,17 +27,21 @@ class UbiartHeader:
             header += b'\x00\x01\x20\x00'
 
         fileStream.seek(0)
-        header += len(fileStream.read()).to_bytes(3, "big") # Image Size
+        if isXPR:
+            header += len(fileStream.read()).to_bytes(3, "big") # Image Size
+        else:
+            header += b'\x00\x40\x00'
         header += b'\x80' # ???
         header += b'\x00\x00\x00\x00'
         header += b'\x00\x04\x00\x00'
         header += b'\x00\x00\x00\x00'
-        header += b'\x00\x00\xCC\xCC'
+        header += b'\x00\x00\x00\x00'
 
         fileStream.close()
 
         if hasSSD:
             fileStream = open(imageEncoded, "rb")
+            imageStream = Image.open(image)
             fileStream.seek(0x14)
             width, height = struct.unpack(">HH", fileStream.read(4), fileStream.read(4))
 
@@ -58,7 +65,12 @@ class UbiartHeader:
             header += b'\x00\x02\x00\x07'
             header += b'\x00\x00\x00\x20'
             header += b'\x00\x00\x00\x04'
-            header += b'1TXD'
+
+            if imageStream.mode == "RGBA" or (imageStream.mode == "P" and "transparency" in imageStream.info):
+                header += "APMC"
+            else:
+                header += b'1TXD'
+                
             header += b'\x00\x00\x00\x00'
             header += b'\x00\x00\x00\x00'
             header += b'\x00\x00\x00\x00'
