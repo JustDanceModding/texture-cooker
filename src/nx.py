@@ -14,14 +14,13 @@ def convert_to_png_MAGICK(image_path, output_png, binary_path="bin"):
 def convert_to_dds(image_path, output_dds, binary_path="bin"):
     alpha = has_transparency(image_path)
     compression = '-bc3' if alpha else "-bc1"
-
     # Converting to PNG since if NVCompress gets DDS as inpput the DDS wont work.
 
     makedirs("temp", exist_ok=True)
     convert_to_png_MAGICK(image_path, "temp/temp.png")
 
     command = f"{binary_path}\\nvcompress.exe {compression}"
-    command += f' "temp.png" "{output_dds}"'
+    command += f' "temp\\temp.png" "{output_dds}"'
     subprocess.run(
         command,
         stdout=subprocess.PIPE,
@@ -29,8 +28,6 @@ def convert_to_dds(image_path, output_dds, binary_path="bin"):
         shell=True,
         text=True
     )
-
-    rmtree("temp")
 
 def has_transparency(image_path, binary_path="bin"):
     completed_process = subprocess.Popen(
@@ -83,7 +80,7 @@ def main():
 
         MakeHeader = UbiartHeader.create_header
 
-        header = MakeHeader(f"temp/{dds}", imageEncoded=f"temp/{xtx}")
+        header = MakeHeader(f"temp/{dds}")
 
         with open(f"cooked/nx/{ckd}", "wb") as final:
             final.write(header)
