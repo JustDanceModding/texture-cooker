@@ -76,7 +76,7 @@ def main():
 
         MakeXTX = ConvertTexture.convert
 
-        MakeXTX(f"temp/{dds}", f"temp/{xtx}", "nx")
+        MakeXTX(f"temp/{dds}", outImage=f"temp/{xtx}", platform="nx")
 
         MakeHeader = UbiartHeader.create_header
 

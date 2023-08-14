@@ -60,7 +60,7 @@ def main():
 
         MakeGTF = ConvertTexture.convert
 
-        MakeGTF(f"temp/{dds}", f"temp/{gtf}", "ps3")
+        MakeGTF(f"temp/{dds}", outImage=f"temp/{gtf}", platform="ps3")
 
         MakeHeader = UbiartHeader.create_header
 

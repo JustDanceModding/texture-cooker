@@ -1,7 +1,7 @@
 from os import system
 
 class ConvertTexture:
-    def convert(image, outImage, platform, binPath="bin"):
+    def convert(image, outImage=None, platform="nx", binPath="bin"):
         if platform == "wii":
             system(f"{binPath}\\wimgt.exe ENCODE \"{image}\" --transform tpl.cmpr --overwrite --strip --dest \"{outImage}\"")
         

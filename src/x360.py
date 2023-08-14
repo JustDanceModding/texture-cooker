@@ -3,28 +3,13 @@ from os import listdir, makedirs
 from shutil import rmtree
 from CookerFunctions.UbiHeader import UbiartHeader
 from CookerFunctions.ConvertPlatform import ConvertTexture
+from CookerFunctions.RDF import RDF
 
-def convert_to_dds_MAGICK(image_path, output_dds, binary_path="bin"):
-    alpha = has_transparency(image_path)
-    compression = 'DXT5' if alpha else "DXT1"
+def convert_to_png_MAGICK(image_path, output_png, binary_path="bin"):
     subprocess.run(
-        f'''{binary_path}\\magick.exe convert -define dds:compression={compression} "{image_path}" "{output_dds}"''',
+        f'''{binary_path}\\magick.exe convert "{image_path}" "{output_png}"''',
         stdout=subprocess.PIPE, 
         stderr=subprocess.PIPE
-    )
-
-def convert_to_dds(image_path, output_dds, binary_path="bin"):
-    alpha = has_transparency(image_path)
-    compression = '-bc3' if alpha else "-bc1"
-
-    command = f"{binary_path}\\nvcompress.exe {compression}"
-    command += f' "{image_path}" "{output_dds}"'
-    subprocess.run(
-        command,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        shell=True,
-        text=True
     )
 
 def has_transparency(image_path, binary_path="bin"):
@@ -53,36 +38,36 @@ def has_transparency(image_path, binary_path="bin"):
         return False
     elif "p" in output:
         return True
-
+    
 def main():
-    print("Texture Cooker for WiiU")
-
+    print("Texture Cooker for X360")
     makedirs("toCook", exist_ok=True)
-    makedirs("cooked\\wiiu", exist_ok=True)
+    makedirs("cooked\\x360", exist_ok=True)
 
     for image in listdir("toCook"):
-        print(image)
+        print("Current Texture:", image)
         makedirs("temp", exist_ok=True)
-        dds = image.split(".") [0] + '.dds'
+        png = image.split(".") [0] + '.png'
+        rdf = image.split(".") [0] + '.rdf'
+        xpr = image.split(".") [0] + '.xpr'
 
         transparency = has_transparency(f"toCook/{image}")
 
         ckd = image.split(".")[0] + '.png.ckd' if transparency else image.split(".")[0] + '.tga.ckd'
-        gtx = image.split(".")[0] +'.gtx'
 
-        convert_to_dds(f"toCook/{image}", f"temp/{dds}")
+        convert_to_png_MAGICK(f"toCook/{image}", f"temp/{png}")
 
-        MakeGTX = ConvertTexture.convert
-
-        MakeGTX(f"temp/{dds}", outImage=f"temp/{gtx}", platform="wiiu")
+        MakeRDF = RDF.make(f"temp\\{png}", png, f"temp\\{rdf}")
+        MakeXPR = ConvertTexture.convert(f"temp\\{rdf}", platform="x360")
 
         MakeHeader = UbiartHeader.create_header
 
-        header = MakeHeader(f"temp/{dds}")
+        header = MakeHeader(f"temp/{png}", imageEncoded=f"temp\\{xpr}")
 
-        with open(f"cooked/wiiu/{ckd}", "wb") as final:
+        with open(f"cooked/x360/{ckd}", "wb") as final:
             final.write(header)
-            with open(f"temp/{gtx}", "rb") as temp:
+            with open(f"temp/{xpr}", "rb") as temp:
+                temp.read(2060)
                 final.write(temp.read())
 
     rmtree("temp")
