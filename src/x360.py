@@ -1,5 +1,5 @@
 import subprocess
-from os import listdir, makedirs
+from os import listdir, makedirs, SEEK_SET
 from shutil import rmtree
 from CookerFunctions.UbiHeader import UbiartHeader
 from CookerFunctions.ConvertPlatform import ConvertTexture
@@ -67,7 +67,9 @@ def main():
         with open(f"cooked/x360/{ckd}", "wb") as final:
             final.write(header)
             with open(f"temp/{xpr}", "rb") as temp:
-                temp.read(2060)
+                temp.read(0x2D)
+                final.write(temp.read(0x33))
+                temp.seek(2060, SEEK_SET)
                 final.write(temp.read())
 
     rmtree("temp")
