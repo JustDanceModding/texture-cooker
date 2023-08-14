@@ -62,7 +62,7 @@ def main():
 
         MakeHeader = UbiartHeader.create_header
 
-        header = MakeHeader(f"temp/{png}", imageEncoded=f"temp\\{xpr}")
+        header = MakeHeader(f"temp/{png}", imageEncoded=f"temp\\{xpr}", isXPR=True)
 
         with open(f"cooked/x360/{ckd}", "wb") as final:
             final.write(header)
