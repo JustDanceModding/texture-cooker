@@ -9,7 +9,6 @@ Create a "bin" folder and inside you put the programs required for the cooking. 
 
 ## TODO
 - Refactor the header classes as our implementation is not so right.
-- Xbox 360 Encoding
 - Wii Encoding
 
 If you found this useful, leave a star! :D
