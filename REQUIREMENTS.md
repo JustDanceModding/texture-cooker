@@ -8,10 +8,6 @@
 - magick.exe
 - dds2gtf.exe
 
-# Xbox 360:
-- Bundler.exe from the SDK
-- magick.exe
-
 # PC/Xbox One/PS4:
 - magick.exe
 
